@@ -1,0 +1,266 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+* {
+	box-sizing: border-box;
+	size: 20px;
+}
+.topnav {
+	background-color: #fff;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 60px;
+	/* border-bottom: 1px solid #ebeaeb; */
+	box-shadow: 0 1px 4px rgba(0,0,0,.15);
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+	float: left;
+	display: block;
+	color: #0a0b09;
+	font-size: 26px;
+	font-weight: 700;
+	text-align: center;
+	padding: 17px 0px;
+	text-decoration: none;
+}
+.logo {
+	margin-left: 80px;
+	display: block;
+	text-indent: -9999px;
+	width: 85px;
+	height: 56px;
+	background: url('/pub/static/images/photoslack-logo.svg');
+	background-size: 100px 56px;
+}
+
+.main {
+	margin-top: 65px; /* Add a top margin to avoid content overlay */
+}
+.container {
+	width: 100%;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.item {
+	padding: 8px;
+}
+
+.item img {
+	border-radius: 10px;
+	width: 100%;
+	height: auto;
+}
+
+.column.size-1of5 {
+	width: 20%;
+	float: left;
+}
+
+
+body {
+	font-family: 'Playfair Display', serif;
+	background-color: #f8f8f8;
+}
+
+#myImg {
+	border-radius: 5px;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding-top: 100px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.9);
+}
+
+.reactions{
+	font-size: 1.8em;
+	border-radius: 15px;
+	padding: 4px 6px;
+	vertical-align: top;
+	margin: 0px 4px 4px 0px;
+	background-color: rgba(29,155, 209,0.1);
+	box-shadow: inset 0 0 0 1.5px rgba(29,155, 209,1);
+}
+.count{
+	text-align: center;
+	font-size: 11px;
+	display: inline-flex;
+	color: rgba(18,100,163,1);
+	padding: 0 1px 0px 3px;
+	font-weight: 700;
+}
+
+/* Modal Content (image) */
+.modal-content {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 700px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+	-webkit-animation-name: zoom;
+	-webkit-animation-duration: 0.6s;
+	animation-name: zoom;
+	animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+	from {-webkit-transform:scale(0)}
+	to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+	from {transform:scale(0)}
+	to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+	.modal-content {
+		width: 100%;
+	}
+}
+
+@media only screen and (max-width: 550px){
+
+	.container {
+		max-width: 540px!important;
+	}
+	.column.size-1of5 {
+		width: 100%!important;
+		float: left;
+	}
+}
+
+@media only screen and (max-width: 720px) and (min-width: 550px) {
+
+	.container {
+		max-width: 540px!important;
+	}
+	.column.size-1of5 {
+		width: 50%!important;
+		float: left;
+	}
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 720px) {
+	.container {
+		max-width: 720px!important;
+	}
+	.column.size-1of5 {
+		width: 33.33333333333333%!important;
+		float: left;
+	}
+}
+@media only screen and (max-width: 1294px) and (min-width: 990px) {
+
+	.container {
+		max-width: 1100px!important;
+	}
+	.column.size-1of5 {
+		width: 25%!important;
+		float: left;
+	}
+}
+@media only screen and (max-width: 1440px) and (min-width: 1200px) {
+	.container {
+		max-width: 1294px;
+	}
+
+}

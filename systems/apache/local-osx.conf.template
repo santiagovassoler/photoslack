@@ -1,0 +1,80 @@
+<VirtualHost *:80>
+    ServerName %HOST_NAME.com%
+
+    ErrorLog %APACHE_LOG_DIR%/error.log
+    CustomLog %APACHE_LOG_DIR%access.log combined
+
+    RewriteEngine On
+
+    ServerAdmin webmaster@localhost
+    ServerName %HOST_NAME.com%
+    DocumentRoot "%DOCUMENT_ROOT%"
+    DirectoryIndex index.php
+
+    LogLevel info
+    ErrorLog %APACHE_LOG_DIR%error.log
+    CustomLog %APACHE_LOG_DIR%access.log combined
+
+    <Directory "%DOCUMENT_ROOT%">
+        DirectoryIndex index.php
+        Options FollowSymLinks
+        Require all granted
+        AllowOverride All
+
+        RewriteEngine on
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-l
+        RewriteRule .* index.php [L]
+       #RewriteRule ^(.+) index.php?url=$1 [QSA,L]
+
+    </Directory>
+
+    <Directory %DOCUMENT_ROOT%/pub/>
+        DirectoryIndex index.php
+        Require all granted
+        # This above line is required for local OSX development
+        AllowOverride None
+        Header set X-Robots-Tag "noindex, nofollow"
+        Options FollowSymLinks
+        Options +FollowSymLinks
+
+        RewriteEngine on
+
+        RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+        RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
+        RewriteRule .* - [L,R=405]
+
+
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteCond %{REQUEST_FILENAME} !-l
+        RewriteRule .* index.php [L]
+
+        AddDefaultCharset Off
+      </Directory>
+
+      <Directory %DOCUMENT_ROOT%/pub/static/>
+        AllowOverride None
+        Header set X-Robots-Tag "noindex, nofollow"
+        Options FollowSymLinks
+        Options -MultiViews
+
+        AddType application/javascript js jsonp
+        AddType application/json json
+        AddType text/css css
+
+        AddType image/x-icon ico
+        AddType image/gif gif
+        AddType image/png png
+        AddType image/jpeg jpg
+        AddType image/jpeg jpeg
+        AddType image/svg+xml svg
+      </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:fcgi://127.0.0.1:9000"
+    </FilesMatch>
+</VirtualHost>

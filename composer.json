@@ -1,0 +1,16 @@
+{
+  "autoload": {
+    "psr-4": {
+      "PhotoSlack\\": "app/code/PhotoSlack"
+    },
+    "psr-0": {
+      "": ["app/code/"]
+    }
+  },
+
+  "require": {
+    "php": "^7.2.0",
+    "ext-curl": "*",
+    "ext-json": "*"
+  }
+}
