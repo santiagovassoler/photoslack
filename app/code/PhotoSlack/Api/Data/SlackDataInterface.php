@@ -6,8 +6,7 @@ interface SlackDataInterface
 {
     const SLACK_API_URL = 'https://slack.com/api/';
 
-    const SLACK_API_TOKEN = 'xoxp-994303856662-993957075463-992628985728-e0b8058ad6fcd9d11d9b858c43a2e380';
-    const SLACK_API_TOKEN_HISTORY = 'xoxb-994303856662-992087464884-bZN1lL6mSWl24r5nSKrJbrfQ';
+    const SLACK_API_TOKEN = 'xoxb-994303856662-992087464884-bZN1lL6mSWl24r5nSKrJbrfQ';
 
     const SLACK_METHOD = [
         'search.all' => 'search.all',
@@ -18,13 +17,11 @@ interface SlackDataInterface
         'conversations.history' => 'conversations.history'
     ];
 
-    const SLACK_MESSAGE = 'messages';
+    const SLACK_MESSAGE = 'message';
 
-    const SLACK_MATCH = 'matches';
+    const SLACK_MESSAGES = 'messages';
 
-    const SLACK_PUBLIC = 'public';
-
-    const SLACK_SHARE = 'shares';
+    const SLACK_REACTIONS = 'reactions';
 
     const SLACK_PERMALINK_PUBLIC = 'permalink_public';
 
@@ -37,7 +34,5 @@ interface SlackDataInterface
     const SLACK_TS = 'ts';
 
     const SLACK_TEXT = 'text';
-
-    const SLACK_SHARE_ARRAY_POSITION = 0;
 
 }

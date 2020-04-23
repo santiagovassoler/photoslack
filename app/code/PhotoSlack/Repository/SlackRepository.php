@@ -59,8 +59,8 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
                 'channel' => 'CUW08F325',
                 'timestamp' => $ts
             ]);
-        if(isset($result['message']['reactions'])) {
-            foreach ($result['message']['reactions'] as $reactions) {
+        if(isset($result[self::SLACK_MESSAGE][self::SLACK_REACTIONS])) {
+            foreach ($result[self::SLACK_MESSAGE][self::SLACK_REACTIONS] as $reactions) {
                 $reaction = new ReactionModel();
                 $reaction
                     ->setName(':' . $reactions['name'] . ':')
@@ -75,7 +75,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
     {
         return $this->getDataAsArray(
             self::SLACK_API_URL,
-            self::SLACK_API_TOKEN_HISTORY,
+            self::SLACK_API_TOKEN,
             self::SLACK_METHOD,
             $method,
             $params
@@ -90,11 +90,11 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
     public function getCollection()
     {
         $collection = [];
-        $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325',]);
+        $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325']);
 
-        if(array_key_exists('messages', $result)){
-            foreach ($result['messages'] as $key => $value){
-                if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value['text'], '#dog') !== false){
+        if(array_key_exists(self::SLACK_MESSAGES, $result)){
+            foreach ($result[self::SLACK_MESSAGES] as $key => $value){
+                if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value[self::SLACK_TEXT], '#dog') !== false){
 
                     $slackModel = new SlackModel;
 
