@@ -71,90 +71,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $data;
     }
 
-    public function getMessageData()
-    {
-        $message=[];
-        $result = $this->queryAPI('search.all',
-            [
-                "query" => "%23dog",
-                'sort'=>'timestamp'
-            ]);
-
-        foreach ($result[self::SLACK_MESSAGE][self::SLACK_MATCH] as $item){
-            $message[$item[self::SLACK_TS]] = $item[self::SLACK_TEXT];
-        }
-        return $message;
-    }
-
-    public function getImagesData()
-    {
-        $collection = [];
-        $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325',]);
-
-        if(array_key_exists('messages', $result)){
-            foreach ($result['messages'] as $key => $value){
-                if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value['text'], '#dog') !== false){
-
-                    $slackModel = new SlackModel;
-
-                    $list = [];
-                    foreach ($value['files'] as $file) {
-
-                        $image      = new SlackImage;
-                        $image
-                            ->setTs($value[self::SLACK_TS])
-                            ->setPermalinkPublic($file[self::SLACK_PERMALINK_PUBLIC])
-                            ->setPublicUrlShared($file[self::SLACK_PUBLIC_URL_SHARED])
-                            ->setImageUrl($file[self::SLACK_URL_PRIVATE]. '?pub_secret=' . $this->getPublicSecret($file[self::SLACK_PERMALINK_PUBLIC]));
-
-                        $list[] = $image;
-                    }
-
-                    $slackModel
-                        ->setTs($value[self::SLACK_TS])
-                        ->setText($value[self::SLACK_TEXT])
-                        ->setImageList($list);
-
-                    $collection[]  = $slackModel;
-                }
-            }
-        }
-
-        return $collection;
-    }
-
-    public function getImagesData_old()
-    {
-        $message = $this->getMessageData();
-        $result = $this->queryAPI('search.all',
-            [
-                'query' => 'jpg',
-                'sort'=>'timestamp'
-            ]);
-        $imageData = [];
-
-        foreach($result[self::SLACK_FILE][self::SLACK_MATCH] as $key => $matches) {
-            if (array_key_exists('shares', $matches)) {
-                if (array_key_exists(
-                        self::SLACK_PUBLIC, $matches[self::SLACK_SHARE]) &&
-                    array_key_exists(
-                        $matches[self::SLACK_SHARE][self::SLACK_PUBLIC]['CUW08F325'][self::SLACK_SHARE_ARRAY_POSITION][self::SLACK_TS],
-                        $message)) {
-
-                    $ts = $matches[self::SLACK_SHARE][self::SLACK_PUBLIC]['CUW08F325'][self::SLACK_SHARE_ARRAY_POSITION][self::SLACK_TS];
-                    $picsUrl = $matches[self::SLACK_URL_PRIVATE] . '?pub_secret=' . $this->getPublicSecret($matches[self::SLACK_PERMALINK_PUBLIC]);
-
-                    $image = new SlackImage();
-                    $image
-                        ->setImageUrl($picsUrl)
-                        ->setTs($ts);
-
-                    $imageData[$ts][] = $image;
-                }
-            }
-        }
-        return $imageData;
-    }
+    
 
     public function queryAPI(string $method, array $params)
     {
@@ -174,6 +91,38 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
 
     public function getCollection()
     {
-        return ["collection" => $this->getImagesData()];
+        $collection = [];
+        $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325',]);
+
+        if(array_key_exists('messages', $result)){
+            foreach ($result['messages'] as $key => $value){
+                if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value['text'], '#dog') !== false){
+
+                    $slackModel = new SlackModel;
+
+                    $list = [];
+                    foreach ($value['files'] as $file) {
+
+                        $image = new SlackImage;
+                        $image
+                            ->setTs($value[self::SLACK_TS])
+                            ->setPermalinkPublic($file[self::SLACK_PERMALINK_PUBLIC])
+                            ->setPublicUrlShared($file[self::SLACK_PUBLIC_URL_SHARED])
+                            ->setImageUrl($file[self::SLACK_URL_PRIVATE]. '?pub_secret=' . $this->getPublicSecret($file[self::SLACK_PERMALINK_PUBLIC]));
+
+                        $list[] = $image;
+                    }
+
+                    $slackModel
+                        ->setTs($value[self::SLACK_TS])
+                        ->setText($value[self::SLACK_TEXT])
+                        ->setImageList($list);
+
+                    $collection[]  = $slackModel;
+                }
+            }
+        }
+
+        return ['collection' => $collection];
     }
 }
