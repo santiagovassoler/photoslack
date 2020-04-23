@@ -3,7 +3,6 @@
 namespace PhotoSlack\Repository;
 
 use PhotoSlack\Api\Data\SlackDataInterface;
-use PhotoSlack\Database\DB;
 use PhotoSlack\Model\ReactionModel;
 use PhotoSlack\Model\SlackImage;
 use PhotoSlack\Model\SlackModel;
@@ -168,33 +167,13 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         );
     }
 
-    public function getPublicSecret($somestring)
+    public function getPublicSecret($url)
     {
-        return substr($somestring, strrpos($somestring, '-') + 1);
+        return substr($url, strrpos($url, '-') + 1);
     }
 
     public function getCollection()
     {
         return ["collection" => $this->getImagesData()];
-        //return [":ok" => ":result"];
-        /*
-        $collection = [];
-        $image = $this->getImagesData();
-        $message = $this->getMessageData();
-        var_dump($message);
-        if(!empty($image)) {
-            foreach ($image as $key => $value) {
-                if (!empty($image)) && array_key_exists($key, $message)) {
-                    $slackModel = new SlackModel;
-                    $slackModel
-                        ->setTs($key)
-                        //->setText($message[$key])
-                        ->setImageList($value);
-
-                    $collection[]  = $slackModel;
-                }
-            }
-        }
-        return ["collection" => $collection];  */
     }
 }
