@@ -5,10 +5,16 @@ namespace PhotoSlack\Api\Data;
 interface EmojiDataInterface
 {
 
-    public function formatTextWithEmoji($text);
+    /*
+     * this function converts slack provided emoji name (:emoji_name:) to
+     * its html unicode form
+     */
+    public function formatTextWithEmoji($text) :string;
 
-    const EMOJI =
-        [
+    /*
+     * emoji to html unicode
+     */
+    const EMOJI = [
         ":+1:" => "&#x1F44D;",
         ":-1:" => "&#x1F44E;",
         ":100:" => "&#x1F4AF;",
@@ -1576,6 +1582,6 @@ interface EmojiDataInterface
         ":zero:" => "&#x0030;",
         ":zipper_mouth_face:" => "&#x1F910;",
         ":zombie:" => "&#x1F9DF;",
-        ":zzz:" => "&#x1F4A4;",
-    ];
+        ":zzz:" => "&#x1F4A4;"
+        ];
 }
