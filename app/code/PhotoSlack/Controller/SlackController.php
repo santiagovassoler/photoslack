@@ -16,16 +16,19 @@ class SlackController extends AbstractController
 
     public function index()
     {
+        $this->list();
+        $this->render('index',  []);
+    }
+
+    public function list()
+    {
         $collection = $this->repo->getCollection();
-        $this->render('index',  $collection);
+        $this->render('list',  $collection);
     }
 
     public function show($ts)
     {
         $image = $this->repo->show($ts);
-        //var_dump($hey);
         $this->render('show', $image);
-        //$data = $this->repo->show($ts);
-        //$this->render('show', $data);
     }
 }

@@ -1,4 +1,8 @@
 <?php include 'app/code/PhotoSlack/View/header.php' ?>
+<?php
+/**@var $image */
+/**@var $reaction */
+?>
 <div class="main">
     <div class="container">
         <div class="gallery">
