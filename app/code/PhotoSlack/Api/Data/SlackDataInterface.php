@@ -34,5 +34,4 @@ interface SlackDataInterface
     const SLACK_TS = 'ts';
 
     const SLACK_TEXT = 'text';
-
 }

@@ -11,45 +11,45 @@ class SlackImage implements SlackImageInterface
     private  $permalinkPublic;
     private  $publicUrlShared;
 
-    public function getTs()
+    public function getTs() : string
     {
         return $this->ts;
     }
 
-    public function getImageUrl()
+    public function getImageUrl() : string
     {
         return $this->imageUrl;
     }
 
-    public function getPermalinkPublic()
+    public function getPermalinkPublic() : string
     {
         return $this->permalinkPublic;
     }
 
-    public function getPublicUrlShared()
+    public function getPublicUrlShared() : string
     {
         return $this->publicUrlShared;
     }
 
-    public function setTs($ts)
+    public function setTs($ts) : SlackImage
     {
         $this->ts = $ts;
         return $this;
     }
 
-    public function setImageUrl($image)
+    public function setImageUrl($image) : SlackImage
     {
         $this->imageUrl = $image;
         return $this;
     }
 
-    public function setPermalinkPublic($link)
+    public function setPermalinkPublic($link) : SlackImage
     {
         $this->permalinkPublic = $link;
         return $this;
     }
 
-    public function setPublicUrlShared($boolValue)
+    public function setPublicUrlShared($boolValue) : SlackImage
     {
         $this->publicUrlShared = $boolValue;
         return $this;

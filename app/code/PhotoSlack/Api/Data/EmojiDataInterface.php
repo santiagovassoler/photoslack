@@ -9,7 +9,7 @@ interface EmojiDataInterface
      * this function converts slack provided emoji name (:emoji_name:) to
      * its html unicode form
      */
-    public function formatTextWithEmoji($text) :string;
+    public function formatTextWithEmoji($text) : string;
 
     /*
      * emoji to html unicode
