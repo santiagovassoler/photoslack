@@ -71,8 +71,6 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $data;
     }
 
-    
-
     public function queryAPI(string $method, array $params)
     {
         return $this->getDataAsArray(
