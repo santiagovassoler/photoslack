@@ -1,7 +1,6 @@
 <?php
 
 use PhotoSlack\Repository\SlackRepository;
-define('CSS_PATH', 'http://localhost/pub/static/style/');
 
 loadAutoload();
 router(getRequest());

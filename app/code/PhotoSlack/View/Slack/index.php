@@ -1,4 +1,5 @@
 <?php include 'app/code/PhotoSlack/View/header.php' ?>
+<?php/**@var $collection */?>
 <div class="main">
 <div class="container">
     <div data-gridify="5-columns">
