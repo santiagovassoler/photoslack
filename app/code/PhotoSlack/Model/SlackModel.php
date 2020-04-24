@@ -10,40 +10,64 @@ use PhotoSlack\Model\EmojiDataInterface;
  */
 class SlackModel extends AbstractEmoji implements SlackDataInterface
 {
+    /* @var string ts */
     private $ts;
 
+    /* @var string $text */
     private $text;
 
+    /* @var array imageList */
     private $imageList = [];
 
-    public function getTs()
+    /**
+     * @return string
+     */
+    public function getTs() : string
     {
         return $this->ts;
     }
 
-    public function getText()
+    /**
+     * @return string
+     */
+    public function getText() : string
     {
         return $this->text;
     }
 
-    public function getImageList()
+    /**
+     * @return array
+     */
+    public function getImageList() : array
     {
         return $this->imageList;
     }
 
-    public function setTs($ts)
+    /**
+     * @param $ts
+     * @return SlackModel
+     */
+    public function setTs($ts) : SlackModel
     {
         $this->ts = $ts;
         return $this;
     }
 
-    public function setText($text)
+    /**
+     * @param $text
+     * @return SlackModel
+     */
+    public function setText($text) : SlackModel
     {
         $this->text = $this->formatTextWithEmoji($text);
         return $this;
     }
 
-    public function setImageList($list)
+    /**
+     * @param $list
+     * @return SlackModel
+     */
+    public function setImageList($list) : SlackModel
     {
         return $this->imageList = $list;
     }
