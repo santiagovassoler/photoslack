@@ -9,7 +9,7 @@ use PhotoSlack\Model\SlackModel;
 
 class SlackRepository implements RepositoryInterface, SlackDataInterface
 {
-    public function show($ts)
+    public function show($ts) : array
     {
         $images = $this->getCollection();
         $img = [];
@@ -25,7 +25,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return ['image' => $img, 'reaction' => $reaction];
     }
 
-    public function getDataAsArray(string $apiUrl, string $apiToken, array $methodArray, string $method, array $argument)
+    public function getDataAsArray(string $apiUrl, string $apiToken, array $methodArray, string $method, array $argument) : array
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->getFormattedURL($apiUrl, $apiToken,  $methodArray, $method, $argument));
@@ -37,12 +37,12 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return json_decode($data, true);
     }
 
-    private function getFormattedURL(String $apiUrl, String $apiToken, Array $methodArray, String $method, Array $argument)
+    private function getFormattedURL(String $apiUrl, String $apiToken, Array $methodArray, String $method, Array $argument) : string
     {
         return $apiUrl . $methodArray[$method] . '?token=' . $apiToken . $this->getRequest($argument);
     }
 
-    public function getRequest(Array $request)
+    public function getRequest(Array $request) : string
     {
         $formattedRequest = '';
         foreach ($request as $key => $value) {
@@ -51,7 +51,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $formattedRequest;
     }
 
-    public function getReactions($ts)
+    public function getReactions($ts) : array
     {
         $data = [];
         $result = $this->queryAPI('reactions.get',
@@ -71,7 +71,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $data;
     }
 
-    public function queryAPI(string $method, array $params)
+    public function queryAPI(string $method, array $params) : array
     {
         return $this->getDataAsArray(
             self::SLACK_API_URL,
@@ -82,12 +82,12 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         );
     }
 
-    public function getPublicSecret($url)
+    public function getPublicSecret($url) : string
     {
         return substr($url, strrpos($url, '-') + 1);
     }
 
-    public function getCollection()
+    public function getCollection() : array
     {
         $collection = [];
         $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325']);
@@ -96,11 +96,8 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
             foreach ($result[self::SLACK_MESSAGES] as $key => $value){
                 if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value[self::SLACK_TEXT], '#dog') !== false){
 
-                    $slackModel = new SlackModel;
-
                     $list = [];
                     foreach ($value['files'] as $file) {
-
                         $image = new SlackImage;
                         $image
                             ->setTs($value[self::SLACK_TS])
@@ -111,6 +108,7 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
                         $list[] = $image;
                     }
 
+                    $slackModel = new SlackModel;
                     $slackModel
                         ->setTs($value[self::SLACK_TS])
                         ->setText($value[self::SLACK_TEXT])

@@ -69,6 +69,7 @@ class SlackModel extends AbstractEmoji implements SlackDataInterface
      */
     public function setImageList($list) : SlackModel
     {
-        return $this->imageList = $list;
+        $this->imageList = $list;
+        return $this;
     }
 }
