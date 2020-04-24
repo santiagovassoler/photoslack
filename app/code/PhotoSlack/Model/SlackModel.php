@@ -5,6 +5,9 @@ namespace PhotoSlack\Model;
 use PhotoSlack\Api\Data\SlackDataInterface;
 use PhotoSlack\Model\EmojiDataInterface;
 
+/**
+ * @implements SlackDataInterface
+ */
 class SlackModel extends AbstractEmoji implements SlackDataInterface
 {
     private $ts;

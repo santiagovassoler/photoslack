@@ -4,27 +4,43 @@ namespace PhotoSlack\Model;
 
 class ReactionModel extends AbstractEmoji
 {
+    /* @var string name */
     private $name;
 
+    /* @var string count */
     private $count;
 
-    public function getName()
+    /**
+     * @return string
+     */
+    public function getName() : string
     {
         return $this->name;
     }
 
-    public function getCount()
+    /**
+     * @return string
+     */
+    public function getCount() : string
     {
         return $this->count;
     }
 
-    public function setName($name)
+    /**
+     * @param $name
+     * @return ReactionModel
+     */
+    public function setName($name) : ReactionModel
     {
         $this->name = $this->formatTextWithEmoji($name);
         return $this;
     }
 
-    public function setCount($count)
+    /**
+     * @param $count
+     * @return ReactionModel
+     */
+    public function setCount($count) : ReactionModel
     {
         $this->count = $count;
         return $this;

@@ -8,6 +8,7 @@ interface EmojiDataInterface
     /*
      * this function converts slack provided emoji name (:emoji_name:) to
      * its html unicode form
+     * @param $text
      */
     public function formatTextWithEmoji($text) : string;
 

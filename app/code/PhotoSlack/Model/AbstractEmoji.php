@@ -6,7 +6,10 @@ use PhotoSlack\Api\Data\EmojiDataInterface;
 
 abstract class AbstractEmoji implements EmojiDataInterface
 {
-    public function formatTextWithEmoji($text):string
+    /**
+     * {@inheritdoc}
+     */
+    public function formatTextWithEmoji($text) : string
     {
         $array = self::EMOJI;
 
