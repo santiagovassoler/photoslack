@@ -2,31 +2,45 @@
 
 namespace PhotoSlack\Controller;
 
-use PhotoSlack\Repository\ImageRepository;
 use PhotoSlack\Repository\RepositoryInterface;
 
 class SlackController extends AbstractController
 {
+    /* @var RepositoryInterface */
     private $repo;
 
+    /**
+     * SlackController constructor.
+     * @param RepositoryInterface $repo
+     */
     public function __construct(RepositoryInterface $repo)
     {
         $this->repo = $repo;
     }
 
-    public function index()
+    /**
+     *  renders a collection of all images
+     */
+    public function index() : void
     {
         $this->list();
-        $this->render('index',  []);
+        $this->render('index', []);
     }
 
-    public function list()
+    /**
+     *  renders a collection of all images
+     */
+    public function list() : void
     {
         $collection = $this->repo->getCollection();
-        $this->render('list',  $collection);
+        $this->render('list', $collection);
     }
 
-    public function show($ts)
+    /**
+     *  renders a single image
+     *  @param $ts
+     */
+    public function show($ts) : void
     {
         $image = $this->repo->show($ts);
         $this->render('show', $image);
