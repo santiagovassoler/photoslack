@@ -9,6 +9,10 @@ use PhotoSlack\Model\SlackModel;
 
 class SlackRepository implements RepositoryInterface, SlackDataInterface
 {
+    /**
+     * @param $ts
+     * @return array
+     */
     public function show($ts) : array
     {
         $images = $this->getCollection();
@@ -25,6 +29,14 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return ['image' => $img, 'reaction' => $reaction];
     }
 
+    /**
+     * @param string $apiUrl
+     * @param string $apiToken
+     * @param array $methodArray
+     * @param string $method
+     * @param array $argument
+     * @return array
+     */
     public function getDataAsArray(string $apiUrl, string $apiToken, array $methodArray, string $method, array $argument) : array
     {
         $ch = curl_init();
@@ -37,11 +49,23 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return json_decode($data, true);
     }
 
+    /**
+     * @param String $apiUrl
+     * @param String $apiToken
+     * @param array $methodArray
+     * @param String $method
+     * @param array $argument
+     * @return string
+     */
     private function getFormattedURL(String $apiUrl, String $apiToken, Array $methodArray, String $method, Array $argument) : string
     {
         return $apiUrl . $methodArray[$method] . '?token=' . $apiToken . $this->getRequest($argument);
     }
 
+    /**
+     * @param array $request
+     * @return string
+     */
     public function getRequest(Array $request) : string
     {
         $formattedRequest = '';
@@ -51,6 +75,10 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $formattedRequest;
     }
 
+    /**
+     * @param $ts
+     * @return array
+     */
     public function getReactions($ts) : array
     {
         $data = [];
@@ -71,6 +99,11 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         return $data;
     }
 
+    /**
+     * @param string $method
+     * @param array $params
+     * @return array
+     */
     public function queryAPI(string $method, array $params) : array
     {
         return $this->getDataAsArray(
@@ -82,11 +115,18 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
         );
     }
 
+    /**
+     * @param string $url
+     * @return string
+     */
     public function getPublicSecret($url) : string
     {
         return substr($url, strrpos($url, '-') + 1);
     }
 
+    /**
+     * @return array
+     */
     public function getCollection() : array
     {
         $collection = [];
