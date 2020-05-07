@@ -34,4 +34,10 @@ interface SlackDataInterface
     const SLACK_TS = 'ts';
 
     const SLACK_TEXT = 'text';
+
+    const SLACK_PUB_SECRET = '?pub_secret=';
+
+    const SLACK_REACTION_NAME = 'name';
+
+    const SLACK_REACTION_COUNT = 'count';
 }
