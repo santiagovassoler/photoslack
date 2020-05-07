@@ -50,6 +50,43 @@ table {
 	box-sizing: border-box;
 	size: 20px;
 }
+/* show page ----------------------- */
+
+.parent {
+	margin: auto;
+	background-color: #fff;
+	display: flex;
+	height: 100%;
+	width: 70%;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	border-radius: 40px;
+}
+
+.child {
+  width: auto;
+  height: auto;
+  max-height: 600px;
+  max-width: 50%;
+
+  border-radius: 40px 0px 0px 40px;
+}
+
+.img-text{
+	font-family: Georgia, serif;
+	font-size: 18px;
+	text-align: center;
+	line-height: 1.4;
+	margin-top: 20px;
+	padding: 30px;
+	width: 100%;
+}
+.reactions{
+	padding-top: 10px;
+	padding-left: 10px;
+	width: 100%;
+}
+/*----------------------------------*/
+
 .topnav {
 	background-color: #fff;
 	overflow: hidden;
@@ -58,7 +95,6 @@ table {
 	left: 0;
 	width: 100%;
 	height: 60px;
-	/* border-bottom: 1px solid #ebeaeb; */
 	box-shadow: 0 1px 4px rgba(0,0,0,.15);
 }
 /* Style the links inside the navigation bar */
@@ -81,9 +117,8 @@ table {
 	background: url('/pub/static/images/photoslack-logo.svg');
 	background-size: 100px 56px;
 }
-
 .main {
-	margin-top: 65px; /* Add a top margin to avoid content overlay */
+	margin-top: 75px; /* Add a top margin to avoid content overlay */
 }
 .container {
 	width: 100%;
@@ -136,10 +171,11 @@ body {
 	background-color: rgba(0,0,0,0.9);
 }
 
-.reactions{
+.reactions-emoji{
+    display: inline-block;
 	font-size: 1.8em;
 	border-radius: 15px;
-	padding: 4px 6px;
+	padding: 10px 6px;
 	vertical-align: top;
 	margin: 0px 4px 4px 0px;
 	background-color: rgba(29,155, 209,0.1);
