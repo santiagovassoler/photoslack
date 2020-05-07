@@ -1,6 +1,6 @@
 <?php
 
-use PhotoSlack\Model\SlackImage;
+use PhotoSlack\Model\Image;
 use PhotoSlack\Model\SlackModel;
 
 /** @var SlackModel[] $collection */
@@ -11,7 +11,7 @@ use PhotoSlack\Model\SlackModel;
         <div data-gridify="5-columns">
             <?php foreach ($collection as $slackModel):
                 $image = $slackModel->getImageList()[0];
-                /** @var  SlackImage $image */
+                /** @var  Image $image */
                  if ($slackModel && $slackModel->getImageList() && $image->getPublicUrlShared()) : ?>
                     <div class="item">
                         <img id=<?=$slackModel->getImageList()[0]->getTs()?> class="img-fluid" src="<?= $image->getImageUrl();?>">

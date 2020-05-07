@@ -2,7 +2,7 @@
 
 namespace PhotoSlack\Api\Data;
 
-use PhotoSlack\Model\SlackImage;
+use PhotoSlack\Model\Image;
 
 interface SlackImageInterface
 {
@@ -14,12 +14,12 @@ interface SlackImageInterface
 
     public function getPublicUrlShared() : string ;
 
-    public function setTs(String $ts) : SlackImage ;
+    public function setTs(String $ts) : Image ;
 
-    public function setImageUrl(String $image) : SlackImage ;
+    public function setImageUrl(String $image) : Image ;
 
-    public function setPermalinkPublic(String $link) : SlackImage ;
+    public function setPermalinkPublic(String $link) : Image ;
 
-    public function setPublicUrlShared(Bool $boolValue) : SlackImage ;
+    public function setPublicUrlShared(Bool $boolValue) : Image ;
 
 }

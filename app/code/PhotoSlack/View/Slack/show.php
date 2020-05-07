@@ -3,12 +3,12 @@
 include 'app/code/PhotoSlack/View/header.php';
 
 use PhotoSlack\Model\Reaction;
-use PhotoSlack\Model\SlackImage;
+use PhotoSlack\Model\Image;
 use PhotoSlack\Model\SlackModel;
 
 /**@var SlackModel[] $images */
 /**@var Reaction[] $reaction */
-/**@var SlackImage $img */
+/**@var Image $img */
 
 ?>
 

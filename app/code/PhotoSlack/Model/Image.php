@@ -4,7 +4,7 @@ namespace PhotoSlack\Model;
 
 use PhotoSlack\Api\Data\SlackImageInterface;
 
-class SlackImage implements SlackImageInterface
+class Image implements SlackImageInterface
 {
     /* @var string ts */
     private  $ts;
@@ -52,9 +52,9 @@ class SlackImage implements SlackImageInterface
 
     /**
      * @param String $ts
-     * @return SlackImage
+     * @return Image
      */
-    public function setTs($ts) : SlackImage
+    public function setTs($ts) : Image
     {
         $this->ts = $ts;
         return $this;
@@ -62,9 +62,9 @@ class SlackImage implements SlackImageInterface
 
     /**
      * @param String $image
-     * @return SlackImage
+     * @return Image
      */
-    public function setImageUrl($image) : SlackImage
+    public function setImageUrl($image) : Image
     {
         $this->imageUrl = $image;
         return $this;
@@ -72,9 +72,9 @@ class SlackImage implements SlackImageInterface
 
     /**
      * @param String $link
-     * @return SlackImage
+     * @return Image
      */
-    public function setPermalinkPublic($link) : SlackImage
+    public function setPermalinkPublic($link) : Image
     {
         $this->permalinkPublic = $link;
         return $this;
@@ -82,9 +82,9 @@ class SlackImage implements SlackImageInterface
 
     /**
      * @param bool $boolValue
-     * @return SlackImage
+     * @return Image
      */
-    public function setPublicUrlShared($boolValue) : SlackImage
+    public function setPublicUrlShared($boolValue) : Image
     {
         $this->publicUrlShared = $boolValue;
         return $this;

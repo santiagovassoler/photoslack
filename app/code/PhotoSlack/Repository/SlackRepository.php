@@ -4,7 +4,7 @@ namespace PhotoSlack\Repository;
 
 use PhotoSlack\Api\Data\SlackDataInterface;
 use PhotoSlack\Model\Reaction;
-use PhotoSlack\Model\SlackImage;
+use PhotoSlack\Model\Image;
 use PhotoSlack\Model\SlackModel;
 
 class SlackRepository implements RepositoryInterface, SlackDataInterface
@@ -147,12 +147,12 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
     /**
      * @param $data
      * @param $ts
-     * @return SlackImage
+     * @return Image
      */
-    public function createSlackImage($data, $ts) : SlackImage
+    public function createSlackImage($data, $ts) : Image
     {
         if(is_array($data)) {
-            $image = new SlackImage;
+            $image = new Image;
             $image
                 ->setTs($ts)
                 ->setPermalinkPublic($data[self::SLACK_PERMALINK_PUBLIC])
