@@ -5,7 +5,7 @@ namespace PhotoSlack\Repository;
 use PhotoSlack\Api\Data\SlackDataInterface;
 use PhotoSlack\Model\Reaction;
 use PhotoSlack\Model\Image;
-use PhotoSlack\Model\SlackModel;
+use PhotoSlack\Model\Message;
 
 class SlackRepository implements RepositoryInterface, SlackDataInterface
 {
@@ -129,13 +129,13 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
 
     /**
      * @param $data
-     * @return SlackModel|null
+     * @return Message|null
      */
     public function createSlackModel($data)
     {
         if(array_key_exists(self::SLACK_FILE, $data) &&
             isset($data[self::SLACK_TEXT]) && strpos($data[self::SLACK_TEXT], '#dog') !== false){
-            $slackModel = new SlackModel;
+            $slackModel = new Message;
             $slackModel
                 ->setTs($data[self::SLACK_TS])
                 ->setText($data[self::SLACK_TEXT])

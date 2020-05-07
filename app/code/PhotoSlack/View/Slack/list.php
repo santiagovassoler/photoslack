@@ -1,9 +1,9 @@
 <?php
 
 use PhotoSlack\Model\Image;
-use PhotoSlack\Model\SlackModel;
+use PhotoSlack\Model\Message;
 
-/** @var SlackModel[] $collection */
+/** @var Message[] $collection */
 ?>
 
 <div class="main">

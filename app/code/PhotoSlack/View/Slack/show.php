@@ -4,9 +4,9 @@ include 'app/code/PhotoSlack/View/header.php';
 
 use PhotoSlack\Model\Reaction;
 use PhotoSlack\Model\Image;
-use PhotoSlack\Model\SlackModel;
+use PhotoSlack\Model\Message;
 
-/**@var SlackModel[] $images */
+/**@var Message[] $images */
 /**@var Reaction[] $reaction */
 /**@var Image $img */
 

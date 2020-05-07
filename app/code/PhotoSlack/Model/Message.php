@@ -7,7 +7,7 @@ use PhotoSlack\Api\Data\SlackDataInterface;
 /**
  * @implements SlackDataInterface
  */
-class SlackModel extends AbstractEmoji implements SlackDataInterface
+class Message extends AbstractEmoji implements SlackDataInterface
 {
     /* @var string ts */
     private $ts;
@@ -44,9 +44,9 @@ class SlackModel extends AbstractEmoji implements SlackDataInterface
 
     /**
      * @param $ts
-     * @return SlackModel
+     * @return Message
      */
-    public function setTs($ts) : SlackModel
+    public function setTs($ts) : Message
     {
         $this->ts = $ts;
         return $this;
@@ -54,9 +54,9 @@ class SlackModel extends AbstractEmoji implements SlackDataInterface
 
     /**
      * @param $text
-     * @return SlackModel
+     * @return Message
      */
-    public function setText($text) : SlackModel
+    public function setText($text) : Message
     {
         $this->text = $this->formatTextWithEmoji($text);
         return $this;
@@ -64,9 +64,9 @@ class SlackModel extends AbstractEmoji implements SlackDataInterface
 
     /**
      * @param $list
-     * @return SlackModel
+     * @return Message
      */
-    public function setImageList($list) : SlackModel
+    public function setImageList($list) : Message
     {
         $this->imageList = $list;
         return $this;
