@@ -4,13 +4,13 @@ namespace PhotoSlack\Controller;
 
 use PhotoSlack\Repository\RepositoryInterface;
 
-class SlackController extends AbstractController
+class MessageController extends AbstractController
 {
     /* @var RepositoryInterface */
     private $repo;
 
     /**
-     * SlackController constructor.
+     * MessageController constructor.
      * @param RepositoryInterface $repo
      */
     public function __construct(RepositoryInterface $repo)

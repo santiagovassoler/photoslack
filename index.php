@@ -37,20 +37,20 @@ function router($request)
     {
         case '' :
         case '/':
-            $controllerName = '\PhotoSlack\Controller\SlackController';
+            $controllerName = '\PhotoSlack\Controller\MessageController';
             $action = 'index';
             break;
         case 'd':
-            $controllerName = '\PhotoSlack\Controller\SlackController';
+            $controllerName = '\PhotoSlack\Controller\MessageController';
             $action = 'show';
             break;
         case 'reaction':
-            $controllerName = '\PhotoSlack\Controller\SlackController';
+            $controllerName = '\PhotoSlack\Controller\MessageController';
             $action = 'reaction';
             break;
         default :
             http_response_code(404);
-            //include('app/code/PhotoSlack/View/Slack/show.php');
+            //include('app/code/PhotoSlack/View/Message/show.php');
             echo "<h1>404 PAGE NOT FOUND</h1>";
             echo "<h1><a>GO HOME: <a href='/'> 🏠</a></h1>";
             die();
