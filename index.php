@@ -30,9 +30,7 @@ function router($request)
 {
     $action = $request[0];
     $param = (count($request) > 1) ? $request[1] : '' ;
-
-    //echo $param;
-
+    
     switch ($action)
     {
         case '' :
