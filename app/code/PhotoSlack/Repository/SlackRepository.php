@@ -3,7 +3,7 @@
 namespace PhotoSlack\Repository;
 
 use PhotoSlack\Api\Data\SlackDataInterface;
-use PhotoSlack\Model\ReactionModel;
+use PhotoSlack\Model\Reaction;
 use PhotoSlack\Model\SlackImage;
 use PhotoSlack\Model\SlackModel;
 
@@ -74,11 +74,11 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
 
     /**
      * @param $data
-     * @return ReactionModel
+     * @return Reaction
      */
-    public function createReaction($data) : ReactionModel
+    public function createReaction($data) : Reaction
     {
-        $reaction = new ReactionModel();
+        $reaction = new Reaction();
         $reaction
             ->setName(':' . $data[self::SLACK_REACTION_NAME] . ':')
             ->setCount($data[self::SLACK_REACTION_COUNT]);

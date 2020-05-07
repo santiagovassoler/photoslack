@@ -3,7 +3,6 @@
 namespace PhotoSlack\Model;
 
 use PhotoSlack\Api\Data\SlackDataInterface;
-use PhotoSlack\Model\EmojiDataInterface;
 
 /**
  * @implements SlackDataInterface
