@@ -9,24 +9,21 @@ use PhotoSlack\Model\SlackModel;
 
 class SlackRepository implements RepositoryInterface, SlackDataInterface
 {
+
     /**
      * @param $ts
      * @return array
      */
     public function show($ts) : array
     {
-        $images = $this->getCollection();
-        $img = [];
-
-        foreach ($images['collection'] as $key => $image){
-            if($ts === $image->getTs()){
-                $img = $image->getImageList();
-            }
-        }
-
+        $collection = $this->getCollection();
         $reaction = $this->getReactions($ts);
 
-        return ['image' => $img, 'reaction' => $reaction];
+        $img = array_filter($collection['collection'], function($data) use ($ts) {
+            return $ts === $data->getTs() ?? $data->getImageList();
+        });
+
+        return ['reaction' => $reaction, 'images' => $img];
     }
 
     /**
@@ -76,27 +73,33 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
     }
 
     /**
+     * @param $data
+     * @return ReactionModel
+     */
+    public function createReaction($data) : ReactionModel
+    {
+        $reaction = new ReactionModel();
+        $reaction
+            ->setName(':' . $data[self::SLACK_REACTION_NAME] . ':')
+            ->setCount($data[self::SLACK_REACTION_COUNT]);
+        return $reaction;
+    }
+
+    /**
      * @param $ts
      * @return array
      */
     public function getReactions($ts) : array
     {
-        $data = [];
         $result = $this->queryAPI('reactions.get',
             [
                 'channel' => 'CUW08F325',
                 'timestamp' => $ts
             ]);
         if(isset($result[self::SLACK_MESSAGE][self::SLACK_REACTIONS])) {
-            foreach ($result[self::SLACK_MESSAGE][self::SLACK_REACTIONS] as $reactions) {
-                $reaction = new ReactionModel();
-                $reaction
-                    ->setName(':' . $reactions['name'] . ':')
-                    ->setCount($reactions['count']);
-                $data[] = $reaction;
-            }
+           return array_map([$this, 'createReaction'], $result[self::SLACK_MESSAGE][self::SLACK_REACTIONS]);
         }
-        return $data;
+        return [];
     }
 
     /**
@@ -125,40 +128,49 @@ class SlackRepository implements RepositoryInterface, SlackDataInterface
     }
 
     /**
+     * @param $data
+     * @return SlackModel|null
+     */
+    public function createSlackModel($data)
+    {
+        if(array_key_exists(self::SLACK_FILE, $data) &&
+            isset($data[self::SLACK_TEXT]) && strpos($data[self::SLACK_TEXT], '#dog') !== false){
+            $slackModel = new SlackModel;
+            $slackModel
+                ->setTs($data[self::SLACK_TS])
+                ->setText($data[self::SLACK_TEXT])
+                ->setImageList(array_map([$this, 'createSlackImage'], $data[self::SLACK_FILE], [$data[self::SLACK_TS]]));
+            return $slackModel;
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $ts
+     * @return SlackImage
+     */
+    public function createSlackImage($data, $ts) : SlackImage
+    {
+        if(is_array($data)) {
+            $image = new SlackImage;
+            $image
+                ->setTs($ts)
+                ->setPermalinkPublic($data[self::SLACK_PERMALINK_PUBLIC])
+                ->setPublicUrlShared($data[self::SLACK_PUBLIC_URL_SHARED])
+                ->setImageUrl($data[self::SLACK_URL_PRIVATE] .
+                    self::SLACK_PUB_SECRET . $this->getPublicSecret($data[self::SLACK_PERMALINK_PUBLIC]));
+            return $image;
+        }
+    }
+
+    /**
      * @return array
      */
     public function getCollection() : array
     {
-        $collection = [];
         $result = $this->queryAPI('conversations.history', ['channel' => 'CUW08F325']);
+        $collection = ['collection'=> array_map([$this, 'createSlackModel'], $result[self::SLACK_MESSAGES])];
 
-        if(array_key_exists(self::SLACK_MESSAGES, $result)){
-            foreach ($result[self::SLACK_MESSAGES] as $key => $value){
-                if(array_key_exists(self::SLACK_FILE, $value) && isset($value['text']) && strpos($value[self::SLACK_TEXT], '#dog') !== false){
-
-                    $list = [];
-                    foreach ($value['files'] as $file) {
-                        $image = new SlackImage;
-                        $image
-                            ->setTs($value[self::SLACK_TS])
-                            ->setPermalinkPublic($file[self::SLACK_PERMALINK_PUBLIC])
-                            ->setPublicUrlShared($file[self::SLACK_PUBLIC_URL_SHARED])
-                            ->setImageUrl($file[self::SLACK_URL_PRIVATE]. '?pub_secret=' . $this->getPublicSecret($file[self::SLACK_PERMALINK_PUBLIC]));
-
-                        $list[] = $image;
-                    }
-
-                    $slackModel = new SlackModel;
-                    $slackModel
-                        ->setTs($value[self::SLACK_TS])
-                        ->setText($value[self::SLACK_TEXT])
-                        ->setImageList($list);
-
-                    $collection[]  = $slackModel;
-                }
-            }
-        }
-
-        return ['collection' => $collection];
+        return array_map('array_filter', $collection);
     }
 }
