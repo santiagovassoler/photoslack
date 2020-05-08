@@ -3,8 +3,9 @@
 namespace PhotoSlack\Repository;
 
 use PhotoSlack\Api\Data\SlackDataInterface;
+use PhotoSlack\Model\Message;
 
-class SlackRepository extends AbstractRepository implements RepositoryInterface, SlackDataInterface
+class MessageRepository extends AbstractRepository implements RepositoryInterface, SlackDataInterface
 {
     /** @var ReactionFactoryInterface */
     private $reactionFactoryInterface;
@@ -13,7 +14,7 @@ class SlackRepository extends AbstractRepository implements RepositoryInterface,
     private $messageFactoryInterface;
 
     /**
-     * SlackRepository constructor.
+     * MessageRepository constructor.
      * @param ReactionFactoryInterface $reactionFactoryInterface
      * @param MessageFactoryInterface $messageFactoryInterface
      */
@@ -35,7 +36,9 @@ class SlackRepository extends AbstractRepository implements RepositoryInterface,
         $collection = $this->getCollection();
         $reaction = $this->getReactions($ts);
 
+
         $message = array_filter($collection['collection'], function($data) use ($ts) {
+            /** @var Message $data */
             return $ts === $data->getTs() ?? $data->getImageList();
         });
 
