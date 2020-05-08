@@ -6,7 +6,7 @@ use PhotoSlack\Model\Reaction;
 use PhotoSlack\Model\Image;
 use PhotoSlack\Model\Message;
 
-/**@var Message[] $images */
+/**@var Message[] $messages */
 /**@var Reaction[] $reaction */
 /**@var Image $img */
 
@@ -14,13 +14,13 @@ use PhotoSlack\Model\Message;
 
 <div class="main">
     <div class="parent">
-        <?php foreach($images as $image): ?>
-            <?php foreach($image->getImageList() as $img): ?>
+        <?php foreach($messages as $message): ?>
+            <?php foreach($message->getImageList() as $img): ?>
                 <?= '<img class="child" src=' .  $img->getImageUrl() . '>'?>
             <?php endforeach;?>
         <div>
             <div class="img-text">
-                <h2><?= $image->getText()?></h2>
+                <h2><?= $message->getText()?></h2>
             </div>
         <?php endforeach;?>
             <div class="reactions">
