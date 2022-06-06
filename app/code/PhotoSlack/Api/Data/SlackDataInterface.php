@@ -6,8 +6,7 @@ interface SlackDataInterface
 {
     const SLACK_API_URL = 'https://slack.com/api/';
 
-    const SLACK_API_TOKEN = 'xoxb-994303856662-992087464884-bZN1lL6mSWl24r5nSKrJbrfQ';
-
+    const SLACK_API_TOKEN = getenv('SLACK_API_TOKEN');
     const SLACK_METHOD = [
         'search.all' => 'search.all',
         'reactions.list' => 'reactions.list',
